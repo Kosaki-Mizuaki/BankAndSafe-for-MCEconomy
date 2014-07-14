@@ -27,7 +27,6 @@ public class BlockSafe extends BlockContainer
 		super(par1, par2Material);
 		this.setCreativeTab(BankAndSafe.tabBankAndSafe);
 		this.setUnlocalizedName("blockSafe");
-		//this.setTextureName("bankandsafe:Safe - " + BankAndSafe.textureSizeFile);
 	}
 
 	/**
@@ -45,8 +44,8 @@ public class BlockSafe extends BlockContainer
 	}*/
 
 	@Override
-	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float what, float these, float are)	{
-		//TileEntity tileEntity = world.getBlockTileEntity(x, y, z);
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int metadata, float what, float these, float are)
+	{
 		if (world.getBlockTileEntity(x, y, z) == null || player.isSneaking())
 		{
 			return false;

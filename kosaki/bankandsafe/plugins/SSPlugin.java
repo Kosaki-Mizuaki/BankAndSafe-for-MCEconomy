@@ -2,6 +2,7 @@ package kosaki.bankandsafe.plugins;
 
 import mceconomy.api.MCEconomyAPI;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.World;
 import sextiarysector.api.SextiarySectorAPI;
 import sextiarysector.api.season.Season;
@@ -10,7 +11,8 @@ import cpw.mods.fml.client.FMLClientHandler;
 public class SSPlugin
 {
 	private static World world = FMLClientHandler.instance().getClient().theWorld;
-	private static EntityPlayer entityPlayer/* = minecraft.thePlayer*/;
+	private static MinecraftServer server=MinecraftServer.getServer();
+	private static EntityPlayer entityPlayer = server.getConfigurationManager().getPlayerForUsername("playerName");
 
 	public static void load()
 	{
