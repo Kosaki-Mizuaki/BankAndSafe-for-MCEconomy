@@ -34,8 +34,14 @@ import cpw.mods.fml.common.registry.GameRegistry;
 	modid="BankAndSafe",
 	name="BankAndSafe for MCEconomy",
 	version="0.0.1_Alpha",
+<<<<<<< HEAD
 	dependencies="required-after:Forge@[9.10,);required-after:FML@[6.2,);required-after:MCEconomy"
 	//after:IC2;after:Forestry;after:SextiarySector;after:BuildCraft|Core;after:EnderIO
+=======
+	dependencies="required-after:Forge@[9.10,);required-after:FML@[6.2,);after:MCEconomy"
+	//after:IC2;after:Forestry;after:SextiarySector;after:BuildCraft|Core;after:EnderIO
+	//required-
+>>>>>>> 475578d151a92902d30bf12c93b8a7c074dffa1f
 )
 @NetworkMod
 (
@@ -60,6 +66,13 @@ public class BankAndSafe
 	public static Item itemMPWand;
 	public static Enchantment moreMPdrop;
 
+	//public static Achivement getMPWand;
+	//public static Achivement ExchangeMPWand;
+	//public static Achivement getMPSafe;
+	//public static Achivement getMPBank;
+	//public static Achivement moreMPdrop;
+	//http://minecraftjp.info/modding/index.php/%E5%AE%9F%E7%B8%BE%E3%81%AE%E8%BF%BD%E5%8A%A0
+
 	//ID
 	public int blockBankID;
 	public int blockSafeID;
@@ -67,6 +80,10 @@ public class BankAndSafe
 	public int item100MPID;
 	public int item1000MPID;
 	public int itemMPWandID;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 475578d151a92902d30bf12c93b8a7c074dffa1f
 	public static final int bankGUIID = 0;
 	public static final int safeGUIID = 1;
 
@@ -121,7 +138,6 @@ public class BankAndSafe
 			textureSize = cfg.get(cfg.CATEGORY_GENERAL,
 						"Will you use x32 for the texture?",
 						false).getBoolean(false);
-				//cfg.getBlock("blockMPID", 2552)
 			if(textureSize)
 			{
 				textureSizeFile = 32;
