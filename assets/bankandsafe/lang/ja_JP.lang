@@ -6,6 +6,6 @@ item.Item100MP.name=100MP玉
 item.Item1000MP.name=1000MP札
 item.ItemMPWand.name=MPの杖
 
-creativetab.BankAndSafe=BankAndSafe
+itemGroup.BankAndSafe=BankAndSafe
 
 enchantment.moreMPdrop=MPドロップ増加

@@ -15,9 +15,11 @@ import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.Property;
+import net.minecraftforge.oredict.OreDictionary;
 import cpw.mods.fml.common.FMLLog;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
@@ -71,6 +73,9 @@ public class BankAndSafe
 	//public static Achivement getMPSafe;
 	//public static Achivement getMPBank;
 	//public static Achivement moreMPdrop;
+	//public static Achivement To100,000MP;
+	//public static Achivement To1,000,000MP;
+	//public static Achivement To100,000,000MP;
 	//http://minecraftjp.info/modding/index.php/%E5%AE%9F%E7%B8%BE%E3%81%AE%E8%BF%BD%E5%8A%A0
 
 	//ID
@@ -94,6 +99,13 @@ public class BankAndSafe
 	public static final String MP_TO_ITEM1000MP_CANCEL_MESSAGE = "Exchange to 1000MPItem is failed.";
 	public static final String MP_TO_ITEM100MP_MESSAGE = "Exchange to 100MPItem is succeeded!";
 	public static final String MP_TO_ITEM100MP_CANCEL_MESSAGE = "Exchange to 100MPItem is failed.";
+
+
+	/*
+	 * ModIDを渡して新しいチャネルを取得する.
+	 * このインスタンスは引数で与えたModIDのMod専用のチャネルになる.
+	 */
+	//public static final SimpleNetworkWrapper packetDispatcher = NetworkRegistry.INSTANCE.newSimpleChannel("BankAndSafe");
 
 	//config関連
 	public static boolean textureSize;
@@ -217,7 +229,6 @@ public class BankAndSafe
 	public void eventInit(FMLInitializationEvent e)
 	{
 		BASLogger.BASLoading("Now setting up contents.");
-
 		/**
 		 *MP増加エンチャント
 		 */
@@ -239,8 +250,6 @@ public class BankAndSafe
 		 *langファイルへ移動
 		 */
 		//BASLogger.BASLoading("[BankAndSafe for MCEconomy] Registering languages.");
-		//Localization.addLocalization("/bankandsafe/lang/", DefaultProps.DEFAULT_LANGUAGE);
-		//別クラス化のときは「(new LangRegister()).lang();」
 		/*
 		LanguageRegistry.addName(blockBank, "MPBank");
 		LanguageRegistry.addName(blockSafe, "MPSafe");
@@ -250,25 +259,60 @@ public class BankAndSafe
 		LanguageRegistry.addName(item1000MP, "1000MP Bill");
 		LanguageRegistry.addName(itemMPWand, "MPWand");
 		*/
-
 		/**
 		 *TileEntity登録
 		 */
-		//GameRegistry.registerTileEntity(BlockBank.class, "blockBank");
 		GameRegistry.registerTileEntity(TileEntitySafe.class, "containerSafe");
 		/**
 		 *GUI追加
 		 */
 		NetworkRegistry.instance().registerGuiHandler(this, guiHandler);
 		/**
+		 *パケット追加
+		 */
+		//packetDispatcher.registerMessage(GuiBlockBankButtonPacketHandler.class, GuiBlockBankButtonPacket.class, 0, Side.SERVER);
+		/**
 		 * エンチャント登録
 		 */
 		MinecraftForge.EVENT_BUS.register(this);
 		/**
+		 * 鉱石辞書登録
+		 */
+		/*
+		 * moneyMP100		=	100MPCoin
+		 * moneyMP1000		=	1000MPBill
+		 */
+		OreDictionary.registerOre("moneyMP100", new ItemStack(this.item100MP));
+		OreDictionary.registerOre("moneyMP1000", new ItemStack(this.item1000MP));
+		/**
 		 * レシピ登録
 		 */
-		//
-		//
+		//MPの杖
+		GameRegistry.addRecipe(new ItemStack(this.itemMPWand, 1),
+								new Object[]{ " X ",
+											  "YZY",
+											  "YYY",
+											  'X',Item.goldNugget,//金塊
+											  'Y',new ItemStack(Item.dyePowder, 1, 4),//ブレイズロッド
+											  'Z',Item.blazeRod});//ラピスラズリ
+		//MP金庫
+		GameRegistry.addRecipe(new ItemStack(this.blockSafe, 1),
+								new Object[]{ "XYX",
+											  "XZX",
+											  "SSS",
+											  'X',this.item100MP,//100MP玉
+											  'Y',Block.tripWireSource,//トリップワイヤーフック
+											  'Z',Block.obsidian,//黒曜石
+											  'S',Block.stoneBrick});//石レンガ
+		//MP銀行
+		GameRegistry.addRecipe(new ItemStack(this.blockBank, 1),
+								new Object[]{ "XYX",
+											  "XZX",
+											  "SSS",
+											  'X',this.item1000MP,//1000MP札
+											  'Y',Block.tripWireSource,//トリップワイヤーフック
+											  'Z',Block.obsidian,//黒曜石
+											  'S',Block.stoneBrick});//石レンガ
 	}
 
 	/**
